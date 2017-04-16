@@ -21,8 +21,12 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
+        
         // Do any additional setup after loading the view.
-        TwitterClient.sharedInstance?.homeTimeline(success: {(tweets: [Tweet]) -> () in
+        TwitterClient.sharedInstance?.loadHomeTimeline(success: {(tweets: [Tweet]) -> () in
             self.tweets = tweets
             self.tableView.reloadData()
         }, failure: {(error: Error) -> () in
@@ -30,6 +34,18 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         })
     }
 
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        TwitterClient.sharedInstance?.loadHomeTimeline(success: {(tweets: [Tweet]) -> () in
+            self.tweets = tweets
+            self.tableView.reloadData()
+            self.tableView.reloadData()
+            refreshControl.endRefreshing()
+        }, failure: {(error: Error) -> () in
+            print(error.localizedDescription)
+            refreshControl.endRefreshing()
+        })
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -49,14 +65,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         TwitterClient.sharedInstance?.logout()
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func onComposeButton(_ sender: UIBarButtonItem) {
+        self.performSegue(withIdentifier: "composeSegue", sender: nil)
     }
-    */
-
 }
