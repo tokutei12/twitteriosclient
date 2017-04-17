@@ -15,6 +15,7 @@ class Tweet: NSObject {
     var retweetCount: Int = 0
     var favoritesCount: Int = 0
     var author: User?
+    var id: Int64?
     
     init(dictionary: Dictionary<String, Any>) {
         text = dictionary["text"] as? String
@@ -33,6 +34,7 @@ class Tweet: NSObject {
         if let userDictionary = userDictionary {
             author = User(dictionary: userDictionary)
         }
+        id = dictionary["id"] as? Int64
     }
     
     class func tweetsWithArray(dictionaries: [Dictionary<String, Any>]) -> [Tweet] {

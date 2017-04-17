@@ -60,12 +60,21 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets.count
     }
-
     @IBAction func onLogoutButton(_ sender: UIBarButtonItem) {
         TwitterClient.sharedInstance?.logout()
     }
 
     @IBAction func onComposeButton(_ sender: UIBarButtonItem) {
         self.performSegue(withIdentifier: "composeSegue", sender: nil)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let cell = sender as? UITableViewCell {
+            let indexPath = tableView.indexPath(for: cell)
+            let tweet = tweets[indexPath!.row]
+            
+            let closeupViewController = segue.destination as! TweetCloseupViewController
+            closeupViewController.tweet = tweet
+        }
     }
 }

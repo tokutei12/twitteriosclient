@@ -11,6 +11,7 @@ import UIKit
 class User: NSObject {
     var name: String?
     var screenname: String?
+    var handle: String?
     var profileUrl: URL?
     var tagline: String?
     var dictionary: Dictionary<String, Any>?
@@ -23,6 +24,7 @@ class User: NSObject {
         name = dictionary["name"] as? String
         
         screenname = dictionary["screen_name"] as? String
+        handle = "@\(screenname!)"
         
         let profileUrlString = dictionary["profile_image_url_https"] as? String
         if let urlString = profileUrlString {

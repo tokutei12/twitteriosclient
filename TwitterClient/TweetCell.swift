@@ -20,8 +20,7 @@ class TweetCell: UITableViewCell {
         didSet {
             tweetAuthorImage.setImageWith((tweet.author?.profileUrl)!)
             tweetAuthorName.text = tweet.author?.name
-            let screenname = (tweet.author?.screenname)!
-            tweetAuthorHandle.text = "@\(screenname)"
+            tweetAuthorHandle.text = tweet.author?.handle
             tweetTextLabel.text = tweet.text
             tweetTime.text = tweet.timestampString
         }

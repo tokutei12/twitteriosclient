@@ -64,7 +64,40 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    func postTweet(tweetText: String, success: @escaping (Any?) -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/statuses/update.json", parameters: ["status": tweetText], progress: nil, success: { (task, response) in
+            success(response)
+        }, failure: { (task, error) in
+            failure(error)
+        })
+    }
+    
+    func reply(originalTweetId: Int64, replyText: String, success: @escaping (Any?) -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/statuses/update.json", parameters: ["status": replyText, "in_reply_to_status_id": originalTweetId], progress: nil, success: { (task, response) in
+            success(response)
+        }, failure: { (task, error) in
+            failure(error)
+        })
+    }
+
+    func retweet(tweetId: Int64, success: @escaping (Any?) -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/statuses/retweet/\(tweetId).json", parameters: nil, progress: nil, success: { (task, response) in
+            success(response)
+        }) { (task, error) in
+            failure(error)
+        }
+    }
+    
+    func favorite(tweetId: Int64, success: @escaping (Any?) -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/favorites/create.json", parameters: ["id": tweetId], progress: nil, success: { (task, response) in
+            success(response)
+        }) { (task, error) in
+            failure(error)
+        }
+    }
+    
     func logout() {
+        print("called twitter client logout")
         User.currentUser = nil
         deauthorize()
         
