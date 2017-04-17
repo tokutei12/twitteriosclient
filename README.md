@@ -31,14 +31,14 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. 
-2.
+1. Is there a less boilerplate way to write the API client methods (TwitterClient), instead of manually adding a success/failure callback to each method and having to call that method upon success or failure of the API call? All of my callback parameters looked exactly the same and were called the same way; seems like something that could be refactored. 
+2. For the optimal user experience, in what view should the reply text view live? Should clicking reply in the tweet closeup open a new view controller, or should there be a text view on the closeup?
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='/twitter.gif?raw=true' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -48,7 +48,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2017] [Kimberly Toy]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
