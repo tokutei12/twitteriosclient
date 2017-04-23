@@ -15,7 +15,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var tweetAuthorHandle: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var tweetTime: UILabel!
-    
+
     var tweet: Tweet! {
         didSet {
             tweetAuthorImage.setImageWith((tweet.author?.profileUrl)!)

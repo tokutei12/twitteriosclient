@@ -25,7 +25,7 @@ class LoginViewController: UIViewController {
     @IBAction func onLoginButton(_ sender: UIButton) {
         TwitterClient.sharedInstance?.login(success: {() -> () in
             print("logged in")
-            self.performSegue(withIdentifier: "loginSegue", sender: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.userLoginNotificationKey), object: nil)
         }, failure: {(error) -> () in
             print(error.localizedDescription)
         })

@@ -15,8 +15,12 @@ class User: NSObject {
     var profileUrl: URL?
     var tagline: String?
     var dictionary: Dictionary<String, Any>?
+    var followersCount: Int?
+    var tweetsCount: Int?
+    var followingCount: Int?
 
     static let userLogoutNotificationKey = "UserDidLogout"
+    static let userLoginNotificationKey = "UserDidLogin"
 
     init(dictionary: Dictionary<String, Any>) {
         self.dictionary = dictionary as Dictionary?
@@ -30,10 +34,16 @@ class User: NSObject {
         if let urlString = profileUrlString {
             profileUrl = URL(string: urlString)
         }
-        
+
         tagline = dictionary["description"] as? String
+        
+        followersCount = dictionary["followers_count"] as? Int
+        
+        tweetsCount = dictionary["statuses_count"] as? Int
+        
+        followingCount = dictionary["friends_count"] as? Int
     }
-    
+
     static var _currentUser: User?
     
     class var currentUser: User? {
