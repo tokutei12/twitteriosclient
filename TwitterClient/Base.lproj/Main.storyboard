@@ -72,6 +72,7 @@
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KbI-MQ-Ynu">
                                                     <rect key="frame" x="15" y="10" width="48" height="48"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="48" id="2Lt-sT-wF7"/>
                                                         <constraint firstAttribute="width" constant="48" id="qff-bi-s93"/>
@@ -143,16 +144,17 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="FFy-jv-CRJ" id="kXj-Np-AVv"/>
+                        <segue destination="ncz-7c-CEi" kind="show" identifier="homefeedToProfileSegue" id="r79-fp-fmo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PJy-ER-N8i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2048.8000000000002" y="136.28185907046478"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Profile-->
         <scene sceneID="2AR-od-5qu">
             <objects>
-                <viewController id="ncz-7c-CEi" customClass="ProfileViewController" customModule="TwitterClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" id="ncz-7c-CEi" customClass="ProfileViewController" customModule="TwitterClient" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="euO-IV-d69"/>
                         <viewControllerLayoutGuide type="bottom" id="Wmb-IV-6x9"/>
@@ -246,7 +248,18 @@
                             <constraint firstItem="fa4-kQ-wUw" firstAttribute="leading" secondItem="RGc-P3-Ipl" secondAttribute="leading" id="x22-yc-Jda"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="eTE-Xy-JH9"/>
+                    <navigationItem key="navigationItem" title="Profile" id="eTE-Xy-JH9">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="jiv-vz-8Fp">
+                            <connections>
+                                <action selector="onLogoutButton:" destination="ncz-7c-CEi" id="oAo-D2-s6R"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Compose" id="LCT-fX-xa5">
+                            <connections>
+                                <action selector="onComposeButton:" destination="ncz-7c-CEi" id="Jdy-PO-qTO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="followersCountLabel" destination="s7F-9l-hvs" id="Gbj-k7-yda"/>
                         <outlet property="followingCountLabel" destination="uDd-W0-PBE" id="pwy-Vw-bGI"/>
@@ -255,6 +268,7 @@
                         <outlet property="userHandleLabel" destination="fa4-kQ-wUw" id="9gh-AF-zn8"/>
                         <outlet property="userImage" destination="5xN-4v-A9M" id="Av9-bv-2Yr"/>
                         <outlet property="userNameLabel" destination="RGc-P3-Ipl" id="xPi-MX-Ri1"/>
+                        <segue destination="kiu-sF-s4g" kind="presentation" identifier="profileComposeSegue" id="JGl-11-tu5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z4c-dh-UrE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -742,4 +756,8 @@
         <image name="reply-action_0" width="65" height="72"/>
         <image name="retweet-action" width="75" height="72"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="eCm-sl-zwc"/>
+        <segue reference="r79-fp-fmo"/>
+    </inferredMetricsTieBreakers>
 </document>

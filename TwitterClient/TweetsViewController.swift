@@ -53,8 +53,18 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.tappedOnImage(sender:)))
+
+        cell.tweetAuthorImage.isUserInteractionEnabled = true
+        cell.tweetAuthorImage.tag = indexPath.row
+        cell.tweetAuthorImage.addGestureRecognizer(tapGestureRecognizer)
+
         cell.tweet = tweets[indexPath.row]
         return cell
+    }
+    
+    public func tappedOnImage(sender:UITapGestureRecognizer) {
+        self.performSegue(withIdentifier: "homefeedToProfileSegue", sender: sender)
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -75,6 +85,15 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             let closeupViewController = segue.destination as! TweetCloseupViewController
             closeupViewController.tweet = tweet
+        }
+        if segue.identifier == "homefeedToProfileSegue" {
+            let profileViewController = segue.destination as! ProfileViewController
+            let gestureSender = sender as! UITapGestureRecognizer
+            let image = gestureSender.view as! UIImageView
+            print(image)
+            print(image.tag)
+            let tweetCell = tableView.cellForRow(at: IndexPath(row: image.tag, section: 0)) as! TweetCell
+            profileViewController.userToDisplay = tweetCell.tweet.author
         }
     }
 }
